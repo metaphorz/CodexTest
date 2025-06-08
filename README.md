@@ -53,3 +53,9 @@ and prevents `attachShader` exceptions during program creation.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Hurricane Simulator (WebGL)
+
+A simple hurricane-inspired visualization is provided using WebGL. Open `hurricane.html` in a modern browser to see an animated vortex that drifts across the screen. The simulation is written in TypeScript and compiled to `hurricane.js`.
+
+If the page does not load correctly when opened directly, start a local server and visit `http://localhost:8000/hurricane.html`.
