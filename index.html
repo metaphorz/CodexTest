@@ -2,20 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mandelbrot Explorer</title>
+  <title>WebGL Demos</title>
   <style>
-    body { margin: 0; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; }
-    #controls { margin: 10px; display: flex; gap: 10px; align-items: center; }
-    #glCanvas { width: 800px; height: 800px; border: 1px solid #ccc; }
+    body { font-family: sans-serif; text-align: center; margin: 40px; }
+    a { display: block; margin: 10px; font-size: 20px; }
   </style>
 </head>
 <body>
-  <h1>Mandelbrot Explorer (WebGL)</h1>
-  <div id="controls">
-    <label>Iterations <input id="iter" type="range" min="50" max="1000" value="200"></label>
-    <label>Color Shift <input id="color" type="range" min="0" max="360" value="0"></label>
-  </div>
-  <canvas id="glCanvas" width="800" height="800"></canvas>
-  <script src="mandelbrot.js"></script>
+  <h1>WebGL Demos</h1>
+  <a href="mandelbrot.html">Mandelbrot Explorer</a>
+  <a href="hurricane.html">Hurricane Simulator</a>
 </body>
 </html>

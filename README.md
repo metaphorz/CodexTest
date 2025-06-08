@@ -26,7 +26,7 @@ An interactive window will open. Drag with the left mouse button to draw a recta
 
 ## WebGL Explorer
 
-A browser-based explorer is available using WebGL for fast rendering. Open `index.html` in a modern browser. Use the sliders to adjust the number of iterations and color shift. Click and drag to pan and use the mouse wheel to zoom.
+A browser-based explorer is available using WebGL for fast rendering. Open `mandelbrot.html` in a modern browser. You can also open `index.html` for a landing page with links to all WebGL demos. Use the sliders to adjust the number of iterations and color shift. Click and drag to pan and use the mouse wheel to zoom.
 
 If your browser blocks loading the file directly, start a local server:
 
@@ -34,7 +34,7 @@ If your browser blocks loading the file directly, start a local server:
 python -m http.server
 ```
 
-Then visit `http://localhost:8000/index.html`.
+Then visit `http://localhost:8000/mandelbrot.html` or open `index.html` for links.
 
 ## Troubleshooting
 
@@ -58,4 +58,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 A simple hurricane-inspired visualization is provided using WebGL. Open `hurricane.html` in a modern browser to see an animated vortex that drifts across the screen. The simulation is written in TypeScript and compiled to `hurricane.js`.
 
-If the page does not load correctly when opened directly, start a local server and visit `http://localhost:8000/hurricane.html`.
+If the page does not load correctly when opened directly, start a local server and visit `http://localhost:8000/hurricane.html`. This demo is also linked from `index.html`.
