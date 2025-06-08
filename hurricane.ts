@@ -53,14 +53,17 @@ void main() {
   uv -= u_center;
   float angle = atan(uv.y, uv.x);
   float radius = length(uv);
-  angle += u_time;
+  angle += u_time * 0.2;
   radius *= u_scale;
-  float spiral = sin(angle * 5.0 - radius * 10.0);
-  float intensity = exp(-radius * 3.0);
-  vec3 color = vec3(0.2, 0.4, 0.8) * intensity + vec3(1.0, 1.0, 1.0) * spiral * intensity;
+  float spiral = sin(angle * 4.0 - log(radius + 1.0) * 15.0);
+  spiral = (spiral + 1.0) * 0.5; // 0-1 range
+  float eye = 1.0 - smoothstep(0.0, 0.06, radius);
+  float intensity = exp(-radius * 2.0);
+  vec3 base = mix(vec3(1.0), vec3(0.3, 0.6, 0.8), smoothstep(0.0, 0.5, radius));
+  vec3 color = base * spiral * intensity + vec3(1.0) * eye;
   gl_FragColor = vec4(color, 1.0);
-}`;
-
+}
+`;
 const program = createProgram(gl, vertexSrc, fragmentSrc);
 if (!program) throw new Error('Program creation failed');
 
