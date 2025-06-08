@@ -1,11 +1,11 @@
-const canvas = document.getElementById('glCanvas');
-const gl = canvas.getContext('webgl');
+var canvas = document.getElementById('glCanvas');
+var gl = canvas.getContext('webgl');
 if (!gl) {
     alert('WebGL not supported');
     throw new Error('WebGL not supported');
 }
 function createShader(gl, type, src) {
-    const shader = gl.createShader(type);
+    var shader = gl.createShader(type);
     if (!shader)
         return null;
     gl.shaderSource(shader, src);
@@ -18,11 +18,11 @@ function createShader(gl, type, src) {
     return shader;
 }
 function createProgram(gl, vsSrc, fsSrc) {
-    const vs = createShader(gl, gl.VERTEX_SHADER, vsSrc);
-    const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSrc);
+    var vs = createShader(gl, gl.VERTEX_SHADER, vsSrc);
+    var fs = createShader(gl, gl.FRAGMENT_SHADER, fsSrc);
     if (!vs || !fs)
         return null;
-    const program = gl.createProgram();
+    var program = gl.createProgram();
     if (!program)
         return null;
     gl.attachShader(program, vs);
@@ -35,42 +35,20 @@ function createProgram(gl, vsSrc, fsSrc) {
     }
     return program;
 }
-const vertexSrc = `
-attribute vec2 position;
-void main() {
-  gl_Position = vec4(position, 0.0, 1.0);
-}`;
-const fragmentSrc = `
-precision highp float;
-uniform vec2 u_resolution;
-uniform float u_time;
-uniform vec2 u_center;
-uniform float u_scale;
-
-void main() {
-  vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution.y;
-  uv -= u_center;
-  float angle = atan(uv.y, uv.x);
-  float radius = length(uv);
-  angle += u_time;
-  radius *= u_scale;
-  float spiral = sin(angle * 5.0 - radius * 10.0);
-  float intensity = exp(-radius * 3.0);
-  vec3 color = vec3(0.2, 0.4, 0.8) * intensity + vec3(1.0, 1.0, 1.0) * spiral * intensity;
-  gl_FragColor = vec4(color, 1.0);
-}`;
-const program = createProgram(gl, vertexSrc, fragmentSrc);
+var vertexSrc = "\nattribute vec2 position;\nvoid main() {\n  gl_Position = vec4(position, 0.0, 1.0);\n}";
+var fragmentSrc = "\nprecision highp float;\nuniform vec2 u_resolution;\nuniform float u_time;\nuniform vec2 u_center;\nuniform float u_scale;\n\nvoid main() {\n  vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution.y;\n  uv -= u_center;\n  float angle = atan(uv.y, uv.x);\n  float radius = length(uv);\n  angle += u_time * 0.2;\n  radius *= u_scale;\n  float spiral = sin(angle * 4.0 - log(radius + 1.0) * 15.0);\n  spiral = (spiral + 1.0) * 0.5; // 0-1 range\n  float eye = 1.0 - smoothstep(0.0, 0.06, radius);\n  float intensity = exp(-radius * 2.0);\n  vec3 base = mix(vec3(1.0), vec3(0.3, 0.6, 0.8), smoothstep(0.0, 0.5, radius));\n  vec3 color = base * spiral * intensity + vec3(1.0) * eye;\n  gl_FragColor = vec4(color, 1.0);\n}\n";
+var program = createProgram(gl, vertexSrc, fragmentSrc);
 if (!program)
     throw new Error('Program creation failed');
 gl.useProgram(program);
-const positionLoc = gl.getAttribLocation(program, 'position');
-const resLoc = gl.getUniformLocation(program, 'u_resolution');
-const timeLoc = gl.getUniformLocation(program, 'u_time');
-const centerLoc = gl.getUniformLocation(program, 'u_center');
-const scaleLoc = gl.getUniformLocation(program, 'u_scale');
-const buffer = gl.createBuffer();
+var positionLoc = gl.getAttribLocation(program, 'position');
+var resLoc = gl.getUniformLocation(program, 'u_resolution');
+var timeLoc = gl.getUniformLocation(program, 'u_time');
+var centerLoc = gl.getUniformLocation(program, 'u_center');
+var scaleLoc = gl.getUniformLocation(program, 'u_scale');
+var buffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-const vertices = new Float32Array([
+var vertices = new Float32Array([
     -1, -1,
     1, -1,
     -1, 1,
@@ -82,13 +60,13 @@ gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 gl.enableVertexAttribArray(positionLoc);
 gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
 gl.uniform2f(resLoc, canvas.width, canvas.height);
-let centerX = 0.0;
-let centerY = 0.0;
-let velX = 0.2;
-let velY = 0.1;
-let lastTime = 0;
+var centerX = 0.0;
+var centerY = 0.0;
+var velX = 0.2;
+var velY = 0.1;
+var lastTime = 0;
 function render(time) {
-    const dt = (time - lastTime) / 1000;
+    var dt = (time - lastTime) / 1000;
     lastTime = time;
     centerX += velX * dt;
     centerY += velY * dt;
